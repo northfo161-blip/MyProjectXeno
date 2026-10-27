@@ -1,0 +1,20 @@
+# Operating system
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Temporary and log files
+*.log
+*.tmp
+*.temp
+
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Local editor settings
+.vscode/
