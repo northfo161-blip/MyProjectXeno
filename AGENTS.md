@@ -4,7 +4,9 @@ This document is binding for every AI agent working in this repository, regardle
 model, client, or session. It overrides default agent behavior. If a request conflicts
 with this document, stop and ask the human project owner for a decision.
 
-**Status:** exists; this revision awaits project-owner approval.
+**Status:** exists; approved at Gate G1 by the project owner on 2026-10-27, together with
+`TASK_OWNERSHIP.md`, `ROADMAP.md`, `TESTING.md`, and `ARCHITECTURE.md`. `README.md` is
+informational and not part of that approval.
 
 Companion document: `TASK_OWNERSHIP.md` (file ownership, handoffs, task format).
 
@@ -50,29 +52,32 @@ current computer.
 - Do not introduce a web backend, external database, or third-party service without
   explicit written approval from the project owner.
 
-## 2. Current confirmed state of the repository
+## 2. Repository state — dated snapshot
 
-Agents must verify rather than assume. As of Task 001:
+This section is a **historical snapshot**, not a live status. Agents must verify current
+state rather than assume it.
 
-- The repository contains `README.md`, `.gitignore`, and this documentation set.
-- There is **no** source tree, no Rojo project file, no place file, and no gameplay code.
-- The Roblox/Luau toolchain (Rojo, Aftman/Rokit, Selene, StyLua, Lune) is **not installed**
-  and is **not** on PATH.
-- Roblox Studio is installed on the development machine.
-- No Git remote is configured. Local commits are sufficient for now; a private remote may
+At the Task 001 snapshot (2026-10-27):
+
+- The repository contained `README.md`, `.gitignore`, and this documentation set.
+- There was **no** source tree, no project mapping file, no place file, and no gameplay code.
+- The Roblox/Luau toolchain was **not installed** and was **not** on PATH. Rojo is only a
+  candidate build/sync tool; no tool is selected until Gate G2 and an approved M0 task spec.
+- Roblox Studio was installed on the development machine.
+- No Git remote was configured. Local commits are sufficient for now; a private remote may
   be added later.
-- Architectural decisions are **provisional** until they are written in an approved
-  document.
+- Architectural decisions were **provisional** until written in an approved document.
 
-If reality differs from the above, record the difference in your task report instead of
-silently adapting.
+At the Task 006 snapshot (2026-10-27), `ROADMAP.md`, `TESTING.md`, and `ARCHITECTURE.md` also
+exist as unapproved drafts; see §7.1. Any statement above may be stale. If reality differs,
+record the difference in your task report instead of silently adapting.
 
 ## 3. Agent roles and authority
 
 | Role | Owns | May write code? | May edit docs? |
 | --- | --- | --- | --- |
 | **OpenCode** (architect/planner) | Architecture, specifications, risk analysis, task definitions, review; documentation paths assigned in `TASK_OWNERSHIP.md` §2.1 | **No**, unless the project owner explicitly authorizes a specific implementation task | Yes, only within its assigned paths |
-| **Cline** (implementer) | Implementation of approved tasks only: `src/**`, Rojo project files, `assets/**` | Yes, only inside the allowed files of an approved task | **No** — never edits project documentation |
+| **Cline** (implementer) | Implementation of approved tasks only: `src/**`, project mapping files, `assets/**` | Yes, only inside the allowed files of an approved task | **No**, with one narrow exception: it may update only the status log and evidence section of its own assigned `docs/tasks/C-###.md` (see `TASK_OWNERSHIP.md` §2.2). It never edits any other documentation |
 
 The authoritative path-level ownership matrix, including the full list of project
 documents, is `TASK_OWNERSHIP.md` §2. This section only summarizes roles; if the two
@@ -183,30 +188,60 @@ These constraints come from the project owner and apply until explicitly revised
 - Open design questions are recorded in a dedicated questions section of the relevant
   document and are never resolved by an agent acting alone.
 
-### 7.1 Planned document set
+### 7.1 Project document set
 
-The project documentation set comprises the existing repository documents plus the planned
-design documents listed below (ten project documents plus `README.md`). Path ownership is
-defined in `TASK_OWNERSHIP.md` §2.1, which is the authoritative list; this table records the
-intended purpose and current state.
+The project documentation set comprises the documents below (ten project documents plus
+`README.md`). Path ownership is defined in `TASK_OWNERSHIP.md` §2.1, which is the authoritative
+list; this table records the intended purpose and current state.
 
 | Document | Purpose | State |
 | --- | --- | --- |
-| `AGENTS.md` | Global rules for all agents (this document) | Exists — this revision awaits owner approval |
-| `TASK_OWNERSHIP.md` | File ownership, handoffs, task lifecycle, task format | Exists — this revision awaits owner approval |
-| `README.md` | Public project overview | Exists — owner-visible summary |
-| `ROADMAP.md` | Staged milestones, prerequisites, exit criteria | Planned — not yet created |
+| `AGENTS.md` | Global rules for all agents (this document) | Exists — approved at Gate G1, 2026-10-27 |
+| `TASK_OWNERSHIP.md` | File ownership, handoffs, task lifecycle, task format | Exists — approved at Gate G1, 2026-10-27 |
+| `README.md` | Public project overview | Exists — informational; not part of the G1 package |
+| `ROADMAP.md` | Staged milestones, prerequisites, exit criteria | Exists; prepared in Task 002 — approved at Gate G1, 2026-10-27 |
 | `GAME_DESIGN.md` | Game rules, open design questions, out-of-scope list | Planned — not yet created |
-| `ARCHITECTURE.md` | Roblox services, module boundaries, code organization | Planned — not yet created |
+| `ARCHITECTURE.md` | Roblox services, module boundaries, code organization | Exists; prepared in Task 004 — approved at Gate G1, 2026-10-27 |
 | `NETWORKING.md` | Server authority, remote contract, validation, exploit prevention | Planned — not yet created |
 | `COMBAT_AND_DAMAGE.md` | Body-part HP, damage, disablement, combat flow | Planned — not yet created |
 | `REASSEMBLY.md` | Defeat, hub, assembly, re-entry | Planned — not yet created |
 | `UI_AND_CONTROLS.md` | HUD, camera, PC/mobile/gamepad controls, accessibility | Planned — not yet created |
-| `TESTING.md` | Test levels, evidence requirements, budgets, regression list | Planned — not yet created |
+| `TESTING.md` | Test levels, evidence requirements, regression list, and where numeric budgets are to be defined | Exists; prepared in Task 003 — approved at Gate G1, 2026-10-27 |
 
-Document creation requires owner approval (Gate G1) and follows the order agreed with the
-owner. **No agent may create, rename, or delete a document outside its assigned paths**, and
-no agent may create one of the planned documents early to "help".
+Gate G1 approves a document **after** it has been drafted; it is never permission to create
+one. Creating, renaming, or deleting a document requires explicit owner authorization and
+follows the order agreed with the owner. **No agent may create, rename, or delete a document
+outside its assigned paths**, and no agent may create one of the planned documents early to
+"help".
+
+Beginner setup instructions are planned for `docs/setup.md`, which is owned by OpenCode. That
+file is not created in this documentation set; it is a separate approved task after M0
+tooling is decided (see `TASK_OWNERSHIP.md` §2.1).
+
+### 7.2 Terms and identifier namespaces
+
+These definitions exist so that a document cannot be read as granting an approval that did
+not happen:
+
+| Term | Meaning in this project |
+| --- | --- |
+| **Stage** / **milestone** | The same thing: a numbered delivery phase `M0`–`M9` in `ROADMAP.md`. A stage is closed at Gate G6; a single task is accepted or rejected at Gate G8. |
+| **Approved** | The project owner explicitly accepted the document, task spec, or milestone at the named gate. Drafting by an agent, a passing test, or silence is **not** approval. |
+| **Blocked** | A task or stage cannot proceed because a prerequisite, decision, access, or passing required test is missing. `blocked` is not acceptance and cannot be reported as success. |
+| **Provisional** | A value, test, or design that depends on an unapproved document **or an unrecorded owner decision**, and cannot be counted as passed until that document is approved or that decision is recorded and the item is updated. |
+
+Identifier namespaces used across the document set:
+
+| Prefix | Meaning | Defined in |
+| --- | --- | --- |
+| `G1`–`G8` | Owner approval gates | `AGENTS.md` §11 |
+| `C-###` | Implementation task files | `docs/tasks/C-###.md`, format in `TASK_OWNERSHIP.md` §6 |
+| `M0`–`M9` | Stages/milestones | `ROADMAP.md` |
+| `D-nn` | Provisional decisions requiring owner approval | `ROADMAP.md` §6 |
+| `R-nn` | Technical risks to verify | `ROADMAP.md` §5 |
+| `T-<stage>-<nn>` | Mandatory test cases | `TESTING.md` |
+| `Q-nn` | Open questions | `TESTING.md` §13 |
+| `A-nn` | Architecture proposals and open questions | `ARCHITECTURE.md` §10 |
 
 ## 8. Beginner-friendly communication
 
@@ -229,11 +264,14 @@ No feature is "done" until it has been tested and the evidence is recorded.
 
 | Level | Meaning | Required when |
 | --- | --- | --- |
-| L0 Static | File parses, project builds, no obvious syntax/type errors | Every task |
+| L0 Static | Documentation tasks: diff, links, headings, formatting, and cross-document consistency. Code tasks: files parse, the project builds, and no obvious syntax/type errors are present | Every task, in the form appropriate to its type |
 | L1 Studio Play (solo) | Manual run in Studio Play mode, Output checked | Every task that changes runtime behavior |
 | L2 Local server (2+ clients) | Studio "Test → Clients and Servers" with 2+ players | Any networking, combat, scoring, or respawn change |
 | L3 Device emulation | Studio Device Emulator for phone/tablet | Any UI or control change |
-| L4 Published playtest | Private/published server on real devices | Milestones, before release claims |
+| L4 Published playtest | Private/published server on real devices | Only stages where `ROADMAP.md` names L4, and before any release-readiness claim. M0–M2 do not require publication. Whether this rule excludes M0 is the pending owner question Q-09; see §14 |
+
+A check that does not apply to a stage is recorded as `NOT APPLICABLE` with a reason, never as
+`PASS`. Result vocabulary is defined in `TESTING.md` §1.5.
 
 ### 9.2 Evidence rules
 
@@ -288,7 +326,8 @@ Three states must never be conflated: *implemented*, *committed*, and *accepted*
 - Do not commit generated build output, Studio autosaves, or local settings unless a
   document explicitly allows it.
 - Never commit `.rbxl`/`.rbxlx` artifacts without an approved asset policy.
-- Milestone checkpoints use annotated tags: `m0-scaffold`, `m1-playable`, etc.
+- Milestone checkpoints use annotated tags: `m0-scaffold`, `m1-arena`, etc. Tag names follow
+  the checkpoint column in `ROADMAP.md` §3.
 - A normal task commit is allowed only after **every required test has passed**. Partial
   verification — a failing or skipped required test — may be preserved only as a `wip`
   commit under §9.4. A normal commit must never carry a failing required test, and partial
@@ -301,8 +340,8 @@ Work stops and waits for the project owner at each gate:
 
 | Gate | Trigger | Who may proceed |
 | --- | --- | --- |
-| G1 — Document approval | A design or architecture document is drafted | Owner approves; then agents rely on it |
-| G2 — Tooling | Installing or upgrading any tool (Rojo, Aftman/Rokit, Selene, StyLua, Studio plugin) | Owner installs or explicitly authorizes |
+| G1 — Document approval | A drafted document set is submitted for owner approval | Owner approves the listed documents. G1 is approval **after** drafting, never permission to create a document. The G1 package is recorded in §14; `README.md` is informational and not a G1 blocker |
+| G2 — Tooling | Installing or upgrading any tool (a build/sync tool, version manager, formatter, linter, Studio plugin) | Owner installs or explicitly authorizes; the specific tool, version, and pin file are named in the approved task spec first |
 | G3 — Architecture change | New service, new remote, new framework, changed character model, changed replication strategy | Owner approves first; document updated first |
 | G4 — Task authorization | A Cline task may begin | Owner approves the task spec; OpenCode has reviewed it |
 | G5 — Task amendment | The task needs files outside its allowed list, or a requirement, acceptance criterion, or test in the task spec must change | Owner approves the amended task spec; the affected work is then re-tested against it |
@@ -323,9 +362,11 @@ A task is complete only when all of the following are true:
    Its permitted interim outcomes are: fix the failure and re-run the test; `blocked` with a
    documented reason; or `in-progress` with an allowed `wip` commit (§9.4). `rejected` is a
    separate owner decision (Gate G8) and is not successful completion.
-5. No new errors or warnings appear in Studio Output that were not already documented.
+5. No new errors or warnings appear in Studio Output that were not already documented. For a
+   documentation-only task, the equivalent check is the L0 documentation check in §9.1.
 6. Documentation impact is reported (which document is now out of date, if any) — but not
-   edited by the implementer.
+   edited by the implementer, except the status log and evidence section of its own task file
+   (`TASK_OWNERSHIP.md` §2.2).
 7. The commit exists with the required message format and the task's checkpoint tag, if any.
    A `wip` commit does not satisfy this item.
 8. A short report is written: what changed, why, how it was tested, what remains open.
@@ -336,12 +377,37 @@ A task is complete only when all of the following are true:
 - Amendments are dated and summarized at the bottom of this file.
 - Conflicting rules are resolved by the project owner, not by agent preference.
 
+## 14. Decision log (owner approvals)
+
+This is the single authoritative record of owner decisions: gate outcomes (G1–G8) and every
+owner decision that a governance document assigns to the owner, including the provisional
+decisions `D-nn` in `ROADMAP.md` §6 and the open questions `Q-nn` in `TESTING.md` §13, with
+their current status and any constraint each decision imposes. Those tables are working lists
+and derived records; where either disagrees with this log, this log governs. A row is only
+updated after the owner explicitly states the decision; silence, an agent's summary, or a
+passing test never changes it. Gate definitions are in §11.
+
+| Decision | Scope | Status | Where the detail lives |
+| --- | --- | --- | --- |
+| G1 — Document approval | `AGENTS.md`, `TASK_OWNERSHIP.md`, `ROADMAP.md`, `TESTING.md`, `ARCHITECTURE.md` (the G1 package). `README.md` is informational and not part of the package | **Approved** — the project owner approved these five documents at Gate G1 on 2026-10-27. Provenance: drafts prepared in Tasks 001–004, reconciled in Task 006, amended in Tasks 008, 010, and 012 (Amendments 4–6), audited in Task 011, and reviewed in Tasks 013–014. The approval covers these five documents only; `README.md` is excluded. It decides no other item: Q-09, Q-02/G2, D-16, A-13, D-13/A-08, Q-06/A-12, and every other `D-nn`/`A-nn` remain as recorded below or in their own documents, and the three Minor findings disclosed by Task 013 (MN-1, MN-2, MN-3) remain open with the timings recorded in the Task 014 review brief | Change logs of the listed documents; `ROADMAP.md` §6 for decisions still open; Task 013 audit report and Task 014 review brief for the open Minor findings |
+| Q-09 — Does L4 apply to M0? | Every normative location that states or relies on the derived L4 rule: `TESTING.md` §1.3, §1.5, §4 (the M0 device-check paragraph and the M0 exit rule) and §13; `ROADMAP.md` §2 and §4 M0; `ARCHITECTURE.md` §10.4; and this document's §9.1 L4 row | **Pending owner decision.** No owner statement is recorded. The documents apply a derived rule (L4 not applicable to M0, which has no playable build) and mark it as a proposal, not an approval. M0 work and testing may proceed, but M0 may not be accepted as compliant with an approved L4 rule until the owner records an answer; see `ROADMAP.md` §4 M0 Device checks. T-M0-08 is the D-16 place/asset policy check and is not part of this scope | `TESTING.md` §13 Q-09 note; `ROADMAP.md` §4 M0 Device checks. If the owner decides L4 applies, the locations in the Scope column are amended together through the stage-criteria procedure in `ROADMAP.md` §2.2 before M0 is accepted |
+
+The G1 approval recorded above was entered in the same change that updated the status line of
+each listed document. Later amendment of an approved document follows that document's own
+amendment path and is recorded here. A pending row is never upgraded by an agent, and G1 being
+approved decides nothing else: recording the Q-09 confirmation still requires its own entry here.
+
 ---
 
 ## Change log
 
 | Date | Change | Approved by |
 | --- | --- | --- |
-| 2026-10-27 | Initial version created under Task 001 | Awaiting project-owner approval |
-| 2026-10-27 | Amendment 1: portable repository-relative paths (§1.1); reconciled planned document set with ownership matrix (§7.1); added failed-test/WIP/acceptance rules (§9.2, §9.4, §10, §11 G6/G8, §12) | Awaiting project-owner approval |
-| 2026-10-27 | Amendment 2: normal commits require all required tests to pass, with partial verification limited to `wip` (§10); absolute checkout path removed (§1.1); G5 broadened to task amendment and G8 added as the task-acceptance gate (§11); §12 aligned with §9.4 | Awaiting project-owner approval |
+| 2026-10-27 | Initial version created under Task 001 | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 1: portable repository-relative paths (§1.1); reconciled planned document set with ownership matrix (§7.1); added failed-test/WIP/acceptance rules (§9.2, §9.4, §10, §11 G6/G8, §12) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 2: normal commits require all required tests to pass, with partial verification limited to `wip` (§10); absolute checkout path removed (§1.1); G5 broadened to task amendment and G8 added as the task-acceptance gate (§11); §12 aligned with §9.4 | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 3 (Task 006): dated repository snapshot (§2); Cline status-log/evidence exception (§3); accurate document registry and non-circular G1 definition (§7.1); terms and identifier namespaces (§7.2); documentation-form L0 and L4 limited to stages naming it (§9.1); `m1-arena` tag example (§10); G1/G2 gate wording (§11); documentation-task DoD clause (§12); decision log with the pending G1 package (§14) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 4 (Task 008): decision log widened to cover gate outcomes and any question a governance document treats as an owner decision; Q-09 recorded as **pending owner decision** rather than resolved (§14) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 5 (Task 010): `Provisional` extended to cover a dependency on an unrecorded owner decision, not only an unapproved document (§7.2); the L4 test-level row names Q-09 as pending instead of settled (§9.1); Q-09's scope now lists every normative location that the owner's answer would change, and its status states how M0 acceptance may be recorded while it is pending (§14) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 6 (Task 012): decision-log preamble now states that §14 is the single authoritative record for gate outcomes and for every `D-nn`/`Q-nn` decision a governance document assigns to the owner, with `ROADMAP.md` §6 and `TESTING.md` §13 as derived lists (§14); Q-09 scope corrected to the M0 device-check paragraph and M0 exit rule, with T-M0-08 explicitly excluded (§14); G1 provenance extended to Tasks 008, 010, and 012 (Amendments 4–6) and the Task 011 audit, still pending (§14) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 7 (Task 015): Gate G1 owner approval recorded — the project owner approved `AGENTS.md`, `TASK_OWNERSHIP.md`, `ROADMAP.md`, `TESTING.md`, and `ARCHITECTURE.md` on 2026-10-27, with `README.md` excluded as informational (§14 G1 row, §7.1 document states, status line). No other decision is recorded: Q-09, Q-02/G2, D-16, A-13, D-13/A-08, and Q-06/A-12 remain pending, and the Task 013 Minor findings MN-1, MN-2, and MN-3 remain open with their recorded timings | Approved at G1, 2026-10-27 |

@@ -7,7 +7,9 @@ It is binding for all AI agents and complements `AGENTS.md`. If the two document
 conflict, `AGENTS.md` governs the rules of conduct and the conflict must be reported to the
 project owner.
 
-**Status:** exists; this revision awaits project-owner approval.
+**Status:** exists; approved at Gate G1 by the project owner on 2026-10-27, together with
+`AGENTS.md`, `ROADMAP.md`, `TESTING.md`, and `ARCHITECTURE.md`. `README.md` is informational and
+outside the approval.
 
 All paths in this document are **repository-relative** and must remain portable across
 machines. Resolve the repository root with `git rev-parse --show-toplevel` before acting,
@@ -31,23 +33,24 @@ documents and owned paths**; other documents describe purposes, not ownership.
 
 | Path | Contents | Notes |
 | --- | --- | --- |
-| `AGENTS.md` | Global agent rules | Exists. Amendment requires owner approval; current revision awaits approval |
-| `TASK_OWNERSHIP.md` | This document | Exists. Current revision awaits owner approval |
-| `README.md` | Public project overview | Exists. Not edited during implementation tasks |
-| `ROADMAP.md` | Milestones, prerequisites, exit criteria | Planned — create only with owner approval |
-| `GAME_DESIGN.md` | Rules and open questions | Planned — create only with owner approval |
-| `ARCHITECTURE.md` | Services, modules, code layout | Planned — create only with owner approval |
-| `NETWORKING.md` | Remote contract and validation | Planned — create only with owner approval |
-| `COMBAT_AND_DAMAGE.md` | Part HP, damage, disablement | Planned — create only with owner approval |
-| `REASSEMBLY.md` | Defeat, hub, assembly, re-entry | Planned — create only with owner approval |
-| `UI_AND_CONTROLS.md` | HUD, camera, PC/mobile/gamepad controls, accessibility | Planned — create only with owner approval |
-| `TESTING.md` | Test strategy, evidence rules, budgets, regression list | Planned — create only with owner approval |
-| `docs/**` | Design records, task specs, reviews | Includes `docs/tasks/` |
+| `AGENTS.md` | Global agent rules | Exists. Amendment requires owner approval; approved at Gate G1, 2026-10-27 |
+| `TASK_OWNERSHIP.md` | This document | Exists. Approved at Gate G1, 2026-10-27 |
+| `README.md` | Public project overview | Exists. Informational; outside the G1 package; not edited during implementation tasks |
+| `ROADMAP.md` | Milestones, prerequisites, exit criteria | Exists; prepared in Task 002. Approved at Gate G1, 2026-10-27 |
+| `GAME_DESIGN.md` | Rules and open questions | Planned — not yet created. Creation requires explicit owner authorization |
+| `ARCHITECTURE.md` | Services, modules, code layout | Exists; prepared in Task 004. Approved at Gate G1, 2026-10-27 |
+| `NETWORKING.md` | Remote contract and validation | Planned — not yet created. Creation requires explicit owner authorization |
+| `COMBAT_AND_DAMAGE.md` | Part HP, damage, disablement | Planned — not yet created. Creation requires explicit owner authorization |
+| `REASSEMBLY.md` | Defeat, hub, assembly, re-entry | Planned — not yet created. Creation requires explicit owner authorization |
+| `UI_AND_CONTROLS.md` | HUD, camera, PC/mobile/gamepad controls, accessibility | Planned — not yet created. Creation requires explicit owner authorization |
+| `TESTING.md` | Test strategy, evidence rules, regression list, and where numeric budgets are to be defined | Exists; prepared in Task 003. Approved at Gate G1, 2026-10-27 |
+| `docs/**` | Design records, task specs, reviews, and the proposed `docs/setup.md` beginner guide | Includes `docs/tasks/`. `docs/setup.md` is not created yet; it is a separate approved task after M0 tooling is decided |
 
 The ten project documents above (plus `README.md`) are the complete project document set.
-Creating a document that is not in this table, or creating a planned document before it is
-approved in the agreed order, is a scope violation. Adding or renaming a document updates
-this table in the same commit.
+Creating a document that is not in this table, or creating a document before its creation is
+explicitly authorized, is a scope violation. Gate G1 approves a document **after** drafting;
+it is never permission to create one. Adding or renaming a document updates this table in the
+same commit.
 
 OpenCode does **not** write gameplay code. Any exception requires the project owner to
 authorize a specific, named implementation task.
@@ -57,13 +60,17 @@ authorize a specific, named implementation task.
 | Path | Contents | Notes |
 | --- | --- | --- |
 | `src/**` | All Luau source | Server, client, shared |
-| `default.project.json` | Rojo project mapping | Only when a task allows it |
+| Project mapping file (tool decided at Gate G2; Rojo example: `default.project.json`) | Maps disk folders into Roblox containers | Only when a task allows it |
 | `assets/**` | Maps, models, UI art sources | Only when a task allows it |
 | `.gitignore` | Ignore rules | Only when a task allows it, and only for Roblox/binary entries |
-| Toolchain pin files (`aftman.toml`, `rok.toml`) | Tool versions | Only after tooling is approved (Gate G2) |
+| Toolchain pin files (names depend on the approved tool; Aftman example: `aftman.toml`) | Tool versions | Only after tooling is approved (Gate G2) |
 
-Cline never edits `docs/**`, `AGENTS.md`, `README.md`, or `TASK_OWNERSHIP.md`, even to
-"correct" them. If a document is wrong, report it.
+Cline never edits project documentation except for one narrow location: the **status log and
+evidence section of its own assigned `docs/tasks/C-###.md`**. It may append dated state
+changes and test evidence there. It may not change requirements, acceptance criteria, scope,
+allowed files, test procedures, or any other section of that file, and it never edits any
+other document, including `AGENTS.md`, `README.md`, `TASK_OWNERSHIP.md`, `ROADMAP.md`,
+`TESTING.md`, or `ARCHITECTURE.md`. If a document is wrong, report it.
 
 ### 2.3 Shared or contested paths
 
@@ -73,7 +80,7 @@ Some paths are owned by neither agent by default:
 | --- | --- |
 | `places/`, `build/` | Build output. Never committed unless the owner approves an asset policy. |
 | `.vscode/`, `.git/config`, `.git/hooks` | Owner-only. Not agent-editable. |
-| Roblox Studio place contents | Authored manually by the owner unless a task explicitly covers a Rojo-mapped path. |
+| Roblox Studio place contents | Authored manually by the owner unless a task explicitly covers a path mapped by the approved build/sync tool. |
 
 If a needed file is not listed in a task's allowed files, the agent stops and requests an
 amendment. Guessing is a defect.
@@ -93,6 +100,10 @@ amendment. Guessing is a defect.
    repository rather than only in chat.
 
 ## 4. Task lifecycle
+
+The terms stage/milestone, approved, blocked, provisional, and the identifier namespaces are
+defined in `AGENTS.md` §7.2. `approved` always means explicit owner approval at the named
+gate; an agent cannot approve its own task or document.
 
 States:
 
@@ -167,7 +178,8 @@ Rules:
 
 **Cline → OpenCode (completion)**
 
-1. Cline updates the task file's status log and evidence section.
+1. Cline updates only the task file's status log and evidence section; it does not change the
+   requirements, acceptance criteria, or any other section (`§2.2`).
 2. Cline commits only when the task's required tests pass. If a required test fails, Cline
    either fixes it or records a `wip` commit under §7, and the task stays `in-progress`.
 3. Cline reports: files changed, commands run, test levels reached, what was not tested,
@@ -213,8 +225,9 @@ Bullet list of tempting adjacent work that must NOT be done in this task.
 Exact paths or globs Cline may create or modify.
 
 ## Forbidden files
-Paths Cline must not touch (at minimum: docs/**, AGENTS.md, README.md,
-TASK_OWNERSHIP.md, and any config not listed above).
+Paths Cline must not touch (at minimum: all documentation, including docs/**, AGENTS.md,
+README.md, TASK_OWNERSHIP.md, and any config not listed above). The only permitted exception
+is the status log and evidence section of this task file itself (TASK_OWNERSHIP.md §2.2).
 
 ## Prerequisites
 Tools installed, prior tasks accepted, decisions made. State blockers explicitly.
@@ -286,7 +299,9 @@ Known edge cases, performance concerns, and anything the reviewer must scrutiniz
 - [ ] Remote surface unchanged unless the task allowed it.
 - [ ] No Roblox rig part renamed, deleted, or detached (prototype constraint).
 - [ ] Balance values live in configuration, not scattered literals.
-- [ ] Naming and structure match `ARCHITECTURE.md` once it exists.
+- [ ] Naming and structure match `ARCHITECTURE.md` once it is approved.
+- [ ] Documentation edits by Cline are confined to the permitted status-log/evidence section
+      of its own task file.
 - [ ] Commit message and tag match the required format.
 - [ ] Documentation impact reported.
 
@@ -308,7 +323,7 @@ Known edge cases, performance concerns, and anything the reviewer must scrutiniz
 Any agent must stop immediately and report if it observes:
 
 - gameplay code being written by OpenCode without authorization,
-- documentation edited by Cline,
+- documentation edited by Cline outside the permitted status-log/evidence section of its own task file,
 - a Hard Prohibition from `AGENTS.md` §4 being violated,
 - an attempt to weaken validation to make a test pass,
 - a claim of testing that did not occur.
@@ -316,7 +331,11 @@ Any agent must stop immediately and report if it observes:
 ## 11. Amendments
 
 Only the project owner approves changes to this document. Amendments are dated in the
-change log.
+change log. The fact and scope of a G1 approval are recorded in the decision log in
+`AGENTS.md` §14. That log is the single authoritative record for owner decisions that the other
+documents treat as decided, including the stage-blocking items tracked in `ROADMAP.md` §6 and
+open questions in `TESTING.md` §13: the owning document's table row and change log follow the
+log, never the other way round.
 
 ---
 
@@ -324,6 +343,9 @@ change log.
 
 | Date | Change | Approved by |
 | --- | --- | --- |
-| 2026-10-27 | Initial version created under Task 001 | Awaiting project-owner approval |
-| 2026-10-27 | Amendment 1: repository-relative portable paths; ownership matrix reconciled with the full document set including `ROADMAP.md`, `TESTING.md`, `UI_AND_CONTROLS.md`; explicit failed-test / `wip` / acceptance rules (§2.1, §4, §5, §6, §7, §8) | Awaiting project-owner approval |
-| 2026-10-27 | Amendment 2: absolute checkout path removed; document statuses unified; lifecycle diagram and transitions completed (`in-progress → blocked`, `blocked → in-progress`, `review → rejected`, closed-task rules); G8 added for task acceptance and G6 restricted to milestones (§4, §5, §2.1) | Awaiting project-owner approval |
+| 2026-10-27 | Initial version created under Task 001 | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 1: repository-relative portable paths; ownership matrix reconciled with the full document set including `ROADMAP.md`, `TESTING.md`, `UI_AND_CONTROLS.md`; explicit failed-test / `wip` / acceptance rules (§2.1, §4, §5, §6, §7, §8) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 2: absolute checkout path removed; document statuses unified; lifecycle diagram and transitions completed (`in-progress → blocked`, `blocked → in-progress`, `review → rejected`, closed-task rules); G8 added for task acceptance and G6 restricted to milestones (§4, §5, §2.1) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 3 (Task 006): accurate document registry and G1 wording (§2.1); narrow Cline status-log/evidence exception reconciled across §2.2, §5, §6, §8, §10; tool-neutral project mapping and pin-file names; terms pointer (§4); decision-log pointer (§11) | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 4 (Task 010): §11 states that the `AGENTS.md` §14 decision log is the single authoritative record for stage-blocking owner decisions, with the owning document's table row and change log following it | Approved at G1, 2026-10-27 |
+| 2026-10-27 | Amendment 5 (Task 015): Gate G1 owner approval recorded — the five approved documents are marked approved in the §2.1 registry and the status line, with `README.md` still informational and outside the approval. Ownership paths, handoff rules, and task format are otherwise unchanged | Approved at G1, 2026-10-27 |
