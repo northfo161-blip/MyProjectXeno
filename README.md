@@ -6,6 +6,12 @@ Project Xeno is a multiplayer arena shooter built for Roblox.
 
 The game focuses on modular character construction, tactical combat, destructible body parts, and rebuilding a fighter after defeat.
 
+**Current MVP scope.** The near-term minimum viable prototype is limited to stages M0–M2:
+project skeleton, an arena with spawning and respawn, and server-authoritative combat with
+overall health. The hub, part assembly, the full defeat → rebuild → re-enter loop, body-part
+damage, the four abilities, scoring, and mobile-specific UI belong to later stages. The
+sections below describe the intended game, not the current prototype.
+
 ## 2. Target Platform
 
 - Game engine: Roblox
